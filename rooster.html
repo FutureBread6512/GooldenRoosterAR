@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AR Academia</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <a-scene embedded arjs>
+        <a-light type="ambient" color="#FFF" intensity="0.8"></a-light>
+        <a-light type="directional" color="#FFF" intensity="0.5" position="2 5 3"></a-light>
+        <a-light type="point" color="#FFF" intensity="1" position="0 3 0"></a-light>
+        
+        <a-marker id="a-marker" type='pattern' url='pattern-pattern.patt'>
+            <a-entity 
+                id="GR"
+                gltf-model="url(GR_AR.gltf)" 
+                scale="0 0 0" 
+                position="0 0 0" 
+                rotation="-90 0 0"
+                animation__appear="property: scale; from: 0 0 0; to: 1 1 1; dur: 2000; easing: easeInOutQuad; startEvents: appear"
+               >
+            </a-entity>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        const model = document.querySelector('#GR');
+        
+        document.querySelector('a-marker').addEventListener('markerFound', () => {
+            model.emit('appear');
+        });
+    </script>
+</body>
+</html>

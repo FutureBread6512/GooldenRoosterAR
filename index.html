@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кибер-сказки Пушкина</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+        
+        h1, h2 {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        /* Цвета кибер-стилистики */
+        .bg-purple { background-color: rgba(106, 13, 173, 0.8); }
+        .bg-blue { background-color: rgba(13, 71, 161, 0.8); }
+        .bg-cyan { background-color: rgba(0, 119, 182, 0.8); }
+        .bg-emerald { background-color: rgba(0, 128, 128, 0.8); }
+        .bg-black { background-color: rgba(10, 10, 10, 0.9); }
+        .bg-gold { background-color: rgba(218, 165, 32, 0.8); }
+        
+        .text-gold { color: #daa520; }
+        
+        /* Блок 1: Заголовок на фоне картинки с затемнением */
+        .hero {
+            background: url('BackMain.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .curtain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1.5s ease-out;
+            padding: 20px;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(106, 13, 173, 0.8), 0 0 20px rgba(13, 71, 161, 0.8);
+            animation: glow 2s infinite alternate;
+            line-height: 1.2;
+        }
+        
+        /* Блоки 2-4: Чередующиеся блоки с картинкой и текстом */
+        .content-block {
+            display: flex;
+            min-height: 100vh;
+            flex-wrap: wrap;
+        }
+        
+        .image-half, .text-half {
+            flex: 1 1 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            min-height: 50vh;
+        }
+        
+        .image-half img {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(106, 13, 173, 0.5);
+        }
+        
+        .text-content {
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .text-content h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        
+        .text-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: #daa520;
+        }
+        
+        /* Блок 5: Ссылка с картинкой с прозрачным фоном */
+        .link-block {
+            display: flex;
+            min-height: 100vh;
+            flex-wrap: wrap;
+        }
+        
+        .link-image {
+            flex: 1 1 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            min-height: 50vh;
+        }
+        
+        .link-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 50vh;
+            filter: drop-shadow(0 0 10px rgba(0, 119, 182, 0.7));
+        }
+        
+        .link-text {
+            flex: 1 1 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px 20px;
+            min-height: 50vh;
+        }
+        
+        .cyber-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, rgba(106, 13, 173, 0.8), rgba(13, 71, 161, 0.8));
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 3px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .cyber-link:hover {
+            box-shadow: 0 0 15px rgba(106, 13, 173, 0.8);
+            transform: translateY(-3px);
+        }
+        
+        .cyber-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cyber-link:hover::before {
+            left: 100%;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(106, 13, 173, 0.8), 0 0 20px rgba(13, 71, 161, 0.8); }
+            to { text-shadow: 0 0 15px rgba(106, 13, 173, 0.9), 0 0 25px rgba(13, 71, 161, 0.9), 0 0 35px rgba(0, 119, 182, 0.7); }
+        }
+        
+        /* Адаптивность для планшетов и десктопов */
+        @media (min-width: 768px) {
+            .content-block, .link-block {
+                flex-wrap: nowrap;
+            }
+            
+            .image-half, .text-half, .link-image, .link-text {
+                flex: 1 1 50%;
+                min-height: 100vh;
+                padding: 40px;
+            }
+            
+            .content-block:nth-child(even) .image-half {
+                order: 2;
+            }
+            
+            .content-block:nth-child(even) .text-half {
+                order: 1;
+            }
+            
+            .link-block .link-text {
+                order: 1;
+            }
+            
+            .link-block .link-image {
+                order: 2;
+            }
+        }
+        
+        /* Дополнительные улучшения для мобильных устройств */
+        @media (max-width: 767px) {
+            section {
+                min-height: 100vh;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .text-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .image-half, .text-half, .link-image, .link-text {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Блок 1: Заголовок на фоне картинки -->
+    <section class="hero">
+        <div class="curtain">
+            <h1 class="hero-title">Кибер-сказки Пушкина, если бы создавались в будущем</h1>
+        </div>
+    </section>
+    
+    <!-- Блок 2: Картинка слева, текст справа -->
+    <section class="content-block">
+        <div class="image-half">
+            <img src="Fisherman.jpg">
+        </div>
+        <div class="text-half bg-purple">
+            <div class="text-content">
+                <h2>Сказка о рыбаке и рыбке</h2>
+                <p>В заброшенной секторе нейросети, где аналоговые волны Балтийского дата-океана бьются о развалины старых серверных ферм, старый сисадмин Логвин выловил из цифровых вод уникальный алгоритм-золотку — самовоспроизводящийся ИИ с квантовой матрицей исполнения желаний. Но его жена, старуха Марфа, жаждавшая не столько вычислительной мощности, сколько статуса и признания в строго иерархичном мире киберславян, заставила мужа требовать у рыбки всё больше: от админских прав на локальный сегмент до должности Хранителя Облачного Трона и титула Царицы Виртуального Скифского Царства. Когда же старуха пожелала стать Владычицей самой нейросети, чтобы золотая рыбка служила у неё на процессоре, алгоритм, не выдержав фатальной ошибки запроса, сбросил все права доступа, оставив их у разбитого терминала, на котором мерцал лишь одинокий курсор на фоне синего экрана смерти.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Блок 3: Текст слева, картинка справа -->
+    <section class="content-block">
+        <div class="text-half bg-blue">
+            <div class="text-content">
+                <h2>У Лукоморья дуб зеленый</h2>
+                <p>На виртуальных берегах ЛУКОморья, где сходятся данные семи хакерских морей, стоит древний серверный массив «Дуб Зеленый», опутанный оптоволоконной цепью с интерфейсом для прямого нейроввода. На той цепи ходит ИИ-хранитель знаний в образе цифрового барса. Там чудеса: русалка-голограмма сидит на ветвях свитчей, над волнами бродят тридцать три богатыря в силовой киберброне с сетевыми трезубцами, а в облачном тумане мелькает дрон-леший, неся на корпусе плоды технологий невиданных. Там царь Кащей по протоколу троjan_skachai_pzh данные в зашифрованном бункере архивирует, и звучит в эфире голос неведомого техношамана, доносящийся с заброшенных спутниковых орбит.</p>
+            </div>
+        </div>
+        <div class="image-half">
+            <img src="Lukamorie.jpg">
+        </div>
+    </section>
+    
+    <!-- Блок 4: Картинка слева, текст справа -->
+    <section class="content-block">
+        <div class="image-half">
+            <img src="Saltan.jpg">
+        </div>
+        <div class="text-half bg-cyan">
+            <div class="text-content">
+                <h2>Сказка о царе Салтане</h2>
+                <p>Запечатанная в криокапсулу-бочку, она вместе с юным княжичем Гвидоном, оказывается на заброшенной станции. Гвидон преображает станцию в чудесный техногенный град, где белка-андроид щелкает нанокристаллы, а стражей-богатырей из морских глубин несут сторожевые дроны-киты. Плетя хитрую паутину потоковых трансляций, княжич заманивает отца в свою футуристическую обитель, где квантовый сканер памяти раскрывает старую ложь, и царь Салтан обретает семью в сияющем сердце нового технологического чуда.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Блок 5: Текст с ссылкой слева, картинка с прозрачным фоном справа -->
+    <section class="link-block">
+        <div class="link-text bg-emerald">
+            <div class="text-content">
+                <h2>Присоединяйтесь к будущему</h2>
+                <p>Золотой петушок царя Дадона - это биоробот, оснашённый машинным зрением, позволяющим видеть врагов! Вы можете посмотреть его модель, перейдя по ссылке ниже.</p>
+                <p>Инструкция: перейдите на сайт и разрешите доступ к камере. Наведите камеру на картинку петуха</p>
+                <a href="rooster.html" class="cyber-link">Взглянуть</a>
+            </div>
+        </div>
+        <div class="link-image bg-black">
+            <!-- Здесь должна быть картинка с прозрачным фоном -->
+            <img src="Icon.PNG">
+        </div>
+    </section>
+</body>
+</html>
